@@ -1,5 +1,6 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.Clients.StockClient;
 import com.example.demo.DTOs.OrderDTO;
 import com.example.demo.Entity.Order;
 import com.example.demo.Repository.OrderRepository;
@@ -17,16 +18,29 @@ public class BookingController {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private StockClient stockClient;
+
     @PostMapping("/order")
     public String saveOrder(OrderDTO orderDTO){
 
-        Order order = new Order();
 
-        order.setOrderNo(UUID.randomUUID().toString());
-        order.setOrderItems(orderDTO.getOrderItems());
+        boolean inStock = orderDTO.getOrderItems()
+                .stream()
+                .allMatch(orderItem -> stockClient.stockAvailable(orderItem.getCode()));
 
-        orderRepository.save(order);
+        if (inStock) {
 
-        return "Order Saved";
+            Order order = new Order();
+
+            order.setOrderNo(UUID.randomUUID().toString());
+            order.setOrderItems(orderDTO.getOrderItems());
+
+            orderRepository.save(order);
+
+            return "Order Saved";
+        }
+
+        return "Order can not be saved";
     }
 }
