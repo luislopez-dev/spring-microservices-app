@@ -16,6 +16,7 @@ public class StockController {
     @Autowired
     private StockRepository stockRepository;
 
+    @RequestMapping("/{code}")
     public boolean stockAvailable(@PathVariable String code) {
         Optional<Stock> stock = stockRepository.findByCode(code);
 
