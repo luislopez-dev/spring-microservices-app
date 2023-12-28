@@ -1,3 +1,8 @@
+/*
+ * Author: Luis López
+ * Website: https://github.com/luislopez-dev
+ * Description: Training Project
+ */
 package com.example.demo.Controller;
 
 import com.example.demo.Entities.Stock;

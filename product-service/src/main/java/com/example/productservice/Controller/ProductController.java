@@ -1,3 +1,8 @@
+/*
+ * Author: Luis López
+ * Website: https://github.com/luislopez-dev
+ * Description: Training Project
+ */
 package com.example.productservice.Controller;
 
 import org.springframework.cloud.context.config.annotation.RefreshScope;
